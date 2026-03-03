@@ -15,3 +15,34 @@ body {
      font-size: 12px;
      opacity: 0.7;
 }
+
+#shape-nav {
+     position: absolute;
+     top: 10px;
+     left: 50%;
+     transform: translateX(-50%);
+     display: flex;
+     gap: 8px;
+}
+
+.shape-btn {
+     background: transparent;
+     border: 1px solid rgba(0, 255, 255, 0.3);
+     color: rgba(0, 255, 255, 0.6);
+     font-family: monospace;
+     font-size: 11px;
+     padding: 5px 12px;
+     cursor: pointer;
+     transition: all 0.2s;
+}
+
+.shape-btn:hover {
+     border-color: rgba(0, 255, 255, 0.8);
+     color: #0ff;
+}
+
+.shape-btn.active {
+     border-color: #0ff;
+     color: #0ff;
+     background: rgba(0, 255, 255, 0.08);
+}
