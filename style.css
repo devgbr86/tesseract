@@ -1,0 +1,17 @@
+html,
+body {
+     margin: 0;
+     padding: 0;
+     background: #000;
+     overflow: hidden;
+     font-family: monospace;
+     color: #0ff;
+}
+
+#info {
+     position: absolute;
+     top: 10px;
+     left: 10px;
+     font-size: 12px;
+     opacity: 0.7;
+}
