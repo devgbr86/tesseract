@@ -90,12 +90,7 @@ body {
      background: rgba(0, 255, 255, 0.08);
 }
 
-#proj-toggle {
-     display: flex;
-     gap: 6px;
-}
 
-/* ── Rotation matrix ── */
 #matrix-display {
      font-size: 9px;
      line-height: 1.7;

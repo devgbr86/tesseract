@@ -17,31 +17,17 @@ document.body.appendChild(renderer.domElement);
 /* ── Scene ────────────────────────────────────────────────────── */
 const scene = new THREE.Scene();
 
-/* ── Cameras ──────────────────────────────────────────────────── */
-const perspCamera = new THREE.PerspectiveCamera(
+/* ── Camera ───────────────────────────────────────────────────── */
+const camera = new THREE.PerspectiveCamera(
     75, window.innerWidth / window.innerHeight, 0.1, 1000
 );
-perspCamera.position.z = 2.8;
-
-const orthoSize = 2.2;
-const orthoCamera = new THREE.OrthographicCamera(
-    -orthoSize * (window.innerWidth / window.innerHeight),
-     orthoSize * (window.innerWidth / window.innerHeight),
-     orthoSize, -orthoSize, 0.1, 1000
-);
-orthoCamera.position.z = 2.8;
-
-let useOrtho = false;
-let camera   = perspCamera;
+camera.position.z = 2.8;
 
 /* ── Resize ───────────────────────────────────────────────────── */
 window.addEventListener("resize", () => {
     const w = window.innerWidth, h = window.innerHeight;
-    perspCamera.aspect = w / h;
-    perspCamera.updateProjectionMatrix();
-    orthoCamera.left   = -orthoSize * (w / h);
-    orthoCamera.right  =  orthoSize * (w / h);
-    orthoCamera.updateProjectionMatrix();
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
     renderer.setSize(w, h);
 });
 
@@ -76,7 +62,6 @@ function applyMatrix4D(v, M) {
 }
 
 function project4Dto3D(v) {
-    if (useOrtho) return [v[0], v[1], v[2]];
     const d = 3, f = 1 / (d - v[3]);
     return [v[0]*f, v[1]*f, v[2]*f];
 }
@@ -272,18 +257,6 @@ SHAPES.forEach((shape, i) => {
     btn.textContent = shape.label;
     btn.addEventListener("click", () => loadShape(i));
     nav.appendChild(btn);
-});
-
-/* ── UI: projection toggle ────────────────────────────────────── */
-document.getElementById("btn-perspective").addEventListener("click", () => {
-    useOrtho = false; camera = perspCamera;
-    document.getElementById("btn-perspective").classList.add("active");
-    document.getElementById("btn-ortho").classList.remove("active");
-});
-document.getElementById("btn-ortho").addEventListener("click", () => {
-    useOrtho = true; camera = orthoCamera;
-    document.getElementById("btn-ortho").classList.add("active");
-    document.getElementById("btn-perspective").classList.remove("active");
 });
 
 /* ── UI: shadow toggle ────────────────────────────────────────── */
