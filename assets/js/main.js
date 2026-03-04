@@ -185,17 +185,25 @@ function loadShape(index) {
     // Main edges
     mainGeo = new THREE.BufferGeometry();
     mainPos = new Float32Array(nFloats);
-    mainGeo.setAttribute("position", new THREE.BufferAttribute(mainPos, 3));
+    const mainAttr = new THREE.BufferAttribute(mainPos, 3);
+    mainAttr.setUsage(THREE.DynamicDrawUsage);
+    mainGeo.setAttribute("position", mainAttr);
+    mainGeo.setDrawRange(0, edges.length * 2);
     mainLines = new THREE.LineSegments(mainGeo, new THREE.LineBasicMaterial({ color: shape.color }));
+    mainLines.frustumCulled = false;
     scene.add(mainLines);
 
     // Shadow projection
     shadowGeo = new THREE.BufferGeometry();
     shadowPos = new Float32Array(nFloats);
-    shadowGeo.setAttribute("position", new THREE.BufferAttribute(shadowPos, 3));
+    const shadowAttr = new THREE.BufferAttribute(shadowPos, 3);
+    shadowAttr.setUsage(THREE.DynamicDrawUsage);
+    shadowGeo.setAttribute("position", shadowAttr);
+    shadowGeo.setDrawRange(0, edges.length * 2);
     shadowLines = new THREE.LineSegments(shadowGeo, new THREE.LineBasicMaterial({
         color: shape.color, transparent: true, opacity: 0.5
     }));
+    shadowLines.frustumCulled = false;
     shadowLines.visible = shadowMode;
     scene.add(shadowLines);
 
